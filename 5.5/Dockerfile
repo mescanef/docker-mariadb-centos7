@@ -1,4 +1,4 @@
-# Dockerfile for CentOS/RHEL v7.x - by mescanef | forked from tutum-docker-{mariadb,mysql}
+# Dockerfile for CentOS/RHEL v7.x - by mescanef | Based on tutum-docker-{mariadb,mysql}
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
