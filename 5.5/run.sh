@@ -1,5 +1,17 @@
 #!/bin/bash
 
+StartMySQL ()
+{
+    /usr/bin/mysqld_safe > /dev/null 2>&1 &
+    RET=1
+    while [[ RET -ne 0 ]]; do
+        echo "=> Waiting for confirmation of MySQL service startup"
+        sleep 5
+        mysql -uroot -e "status" > /dev/null 2>&1
+        RET=$?
+    done
+}
+
 if [ ${REPLICATION_MASTER} == "**False**" ]; then
     unset REPLICATION_MASTER
 fi
@@ -75,3 +87,4 @@ if [ -n "${REPLICATION_SLAVE}" ]; then
 fi
 
 exec mysqld_safe 
+
