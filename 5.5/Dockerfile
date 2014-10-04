@@ -32,12 +32,16 @@ RUN yum install -y mariadb-server mariadb pwgen && \
 # Add MySQL configuration
 ADD my.cnf /etc/mysql/conf.d/my.cnf
 
-ADD create_mariadb_root_user.sh /create_mariadb_root_user.sh
 ADD run.sh /run.sh
+ADD setup.sh /setup.sh
 RUN chmod 775 /*.sh
 
 # Add VOLUMEs to allow backup of config and databases
 VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
+RUN /setup.sh
+
 EXPOSE 3306
 CMD ["/run.sh"]
+
+

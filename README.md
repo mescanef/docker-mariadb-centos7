@@ -3,8 +3,6 @@ docker-mariadb-centos7
 
 A dockerfile with few shell scripts to run a MariaDB database server in Centos 7.x based container.
 
-Work based on https://github.com/tutumcloud/tutum-docker-mysql repo.
-
 
 Usage
 -----
