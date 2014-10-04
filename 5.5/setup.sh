@@ -69,7 +69,7 @@ if [[ ! -d $VOLUME_HOME/mysql ]]; then
        	 	echo "=> MySQL replication master already configured, skip"
     	fi	
 	# Set MySQL REPLICATION - SLAVE
-	else if [ -n "${REPLICATION_SLAVE}" ]; then 
+	elif [ -n "${REPLICATION_SLAVE}" ]; then 
     	echo "=> Configuring MySQL replicaiton as slave ..."
     	if [ -n "${MYSQL_PORT_3306_TCP_ADDR}" ] && [ -n "${MYSQL_PORT_3306_TCP_PORT}" ]; then
         	if [ ! -f /repliation_configured ]; then
