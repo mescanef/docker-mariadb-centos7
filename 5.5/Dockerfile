@@ -19,6 +19,7 @@ MAINTAINER mescanef <zone@mescanef.net>
 ENV MARIADB_USER root
 ENV VOLUME_HOME /var/lib/mysql
 ENV CONF_FILE /etc/my.cnf.d/my.cnf
+# MASTER/SLAVE?
 ENV REPLICATION_MASTER **False**
 ENV REPLICATION_SLAVE **False**
 ENV REPLICATION_USER replica
@@ -36,6 +37,7 @@ RUN rpm -Uvhf http://mirrors.kernel.org/fedora-epel/7/x86_64/e/epel-release-7-2.
 # Add MySQL configuration
 ADD my.cnf ${CONF_FILE}
 
+ADD setup.sh /setup.sh
 ADD run.sh /run.sh
 RUN chmod 775 /*.sh
 
