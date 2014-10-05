@@ -15,31 +15,32 @@
 from centos:centos7
 MAINTAINER mescanef <zone@mescanef.net>
 
-# Exposed ENV
+# Env vars
 ENV MARIADB_USER root
 ENV VOLUME_HOME /var/lib/mysql
-ENV CONF_FILE /etc/mysql/conf.d/my.cnf
-
+ENV CONF_FILE /etc/my.cnf.d/my.cnf
 ENV REPLICATION_MASTER **False**
 ENV REPLICATION_SLAVE **False**
 ENV REPLICATION_USER replica
 ENV REPLICATION_PASS replica
 
-# Install packages
-RUN yum install -y mariadb-server mariadb pwgen && \
+# upgrade...
+RUN yum upgrade -y
+# install packages...
+RUN yum install -y mariadb-server mariadb && \
     rm -rf /var/lib/mysql/* 
+# ..and install pwgen from epel repo
+RUN rpm -Uvhf http://mirrors.kernel.org/fedora-epel/7/x86_64/e/epel-release-7-2.noarch.rpm && \
+	yum install -y pwgen --enablerepo=epel
 
 # Add MySQL configuration
-ADD my.cnf /etc/mysql/conf.d/my.cnf
+ADD my.cnf ${CONF_FILE}
 
 ADD run.sh /run.sh
-ADD setup.sh /setup.sh
 RUN chmod 775 /*.sh
 
 # Add VOLUMEs to allow backup of config and databases
 VOLUME  ["/etc/mysql", "/var/lib/mysql"]
-
-RUN /setup.sh
 
 EXPOSE 3306
 CMD ["/run.sh"]
